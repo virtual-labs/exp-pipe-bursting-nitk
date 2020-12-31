@@ -1,9 +1,9 @@
 <table style="text-align:justify;">
-  <tr>
+  <tr style="background-color: white">
     <th>References</th>
     <th>Contributors list</th>
   </tr>
-  <tr>
+  <tr style="background-color: white">
     <td>
     <li>M, Rameli., “Handbook of Pipe-bursting Practice”, Vulkan Verlag Publications, 2007.</li>
     <li>Fluid Mechanics Lab Manual, National Institute of Technology, Karnataka, 2008.</li>

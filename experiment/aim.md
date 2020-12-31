@@ -1,1 +1,1 @@
-### Aim of the experiment
+To find out the bursting pressure of PVC pipe. 

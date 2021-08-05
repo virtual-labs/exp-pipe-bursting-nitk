@@ -23,7 +23,7 @@ c. Plain cylinder<br>
 d. None of the above<br><br>
 
 Q 5. The stress used to compute bursting pressure in this experiment is<br>
-a. Mohr’s pressure<br>
-<b>b. Von-mises pressure</b><br>
-c. Normal pressure<br>
-d. Shear pressure<br><br>
+a. Mohr’s stress<br>
+<b>b. Von-mises stress</b><br>
+c. Normal stress<br>
+d. Shear stress<br><br>

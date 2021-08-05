@@ -35,10 +35,10 @@
 }, {
 	"question": "The stress used to compute bursting pressure in this experiment is",
 	"answers": {
-		"a": "Mohr’s pressure",
-		"b": "Von-mises pressure",
-		"c": "Normal pressure",
-		"d": "Shear pressure"
+		"a": "Mohr’s stress",
+		"b": "Von-mises stress",
+		"c": "Normal stress",
+		"d": "Shear stress"
 	},
 	"correctAnswer": "b"
 }]

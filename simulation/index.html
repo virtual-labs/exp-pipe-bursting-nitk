@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>SOLVE</title>
+<link rel="stylesheet" type="text/css" href="css/burst.css" />
+<script type="text/javascript" src= "js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src= "js/burst.js"></script>
+<script type="text/javascript" src= "js/ej.web.all.min.js"></script>
+<!--Stylesheet to display Math functions -->
+<link href="css/mathstyle.css" rel="stylesheet" />
+
+<script>
+// Experimental Results
+    var simsubscreennum=0;
+	var pressure = [[0.0,0.1,1.5,1.9,2.2,2.5,2.9,3.2,3.6,4.2,4.5],
+					[0.0,0.5,1.2,1.4,2.6,2.7,2.9,3.4,3.6,4.1,4.4],
+					[0.0,0.6,1.8,1.9,2.3,2.5,2.9,3.4,3.8,4.3,4.6]];
+	var data = [[48,40,4,4.5,5],
+				[46,38,4,4.4,4.75],
+				[44,36,4,4.6,4.5]];
+	
+</script>
+</head>
+
+<body style="margin:0">
+<!--Simulation Screen start		-->
+<div id="simscreen">
+
+<!--Title of Simulation		-->
+<div id="title"><h3>PIPE BURSTING</h3></div>
+
+<img id="white1" style="position:absolute;left:5px; top:100px;height: 500px;width:700px;visibility:hidden;" src="images/white1.PNG"/>
+<!--SubScreen Home	-->	
+<div class="simsubscreen" id="canvas0">
+	<h4 class="incanvas" style="font-family:verdana;" >Objective</h4>
+	<p class="incanvas" style="font-family:verdana; font-size:14px;">To test the bursting pressure of given pipe.</p>
+	<h4 class="incanvas" style="font-family:verdana;">Apparatus used:</h4>
+	<p class="incanvas" style="font-family:verdana; font-size:14px;" >Pipe Bursting Setup</p>
+	<img id="can0-0" style="position: absolute; left: 40px; top: 50px;cursor:pointer" title = "Pipe Bursting Setup" src="images/main.png"/>
+	<br>&nbsp;<span class="tooltip" style="border-bottom:1px dotted ; color:red;text-align:justify">Description
+	<span class="tooltiptext">
+		<strong style="color:red">Von Mises stress</strong>: is a value used to determine if a given material will yield or fracture. It is mostly used for ductile materials, such as metals.<br><br>
+		<strong style="color:red">A normal stress</strong>: is a stress, that occurs when a member is loaded by an axial force.<br>
+	</span>
+	</span>
+	
+</div>
+
+<!--Step1	-->	
+<div class="simsubscreen" id="canvas1" style="visibility:hidden">
+	<strong id="titlestep" class="incanvas">STEP </strong>
+	<span class="circlebg" id="stepnumber">&nbsp;1&nbsp;</span>
+	<p id="pumptext" class="steptext" style="font-family:verdana; font-size:14px;">&nbsp;The pipe to be tested must have nearly uniform ends.</p>
+	<img id="can1-0" style="position: absolute; left: 50px; top: 100px;cursor:pointer" src="images/pipe.png"/>
+	<form id="dataset" style="position: absolute; left: 50px; top: 200px;cursor:pointer;font-size: 14px; font-family: verdana;visibility:hidden" >
+		<label for = "odia"><p id="outerdia">Outer diameter of the pipe = <span id="d1">____</span>&nbsp;mm</p></label>
+		<label for = "idia"><p id="thickness">Inner diameter of the pipe = <span id="d2"></span>&nbsp;mm</p></label>
+		<label for = "thick"><p id="outerrad">Thickness of the pipe (t)= <span id="d3"></span>&nbsp;mm</p></label>
+		<label for = "orad"><p id="innerrad">Outer radius of the pipe (r<sub>2</sub>)= <span id="d4"></span>&nbsp;mm</p></label>
+		<label for = "irad"><p id="innerrad">Inner radius of the pipe (r<sub>1</sub>)= <span id="d5"></span>&nbsp;mm</p></label>	
+		<label for = "calc" style="visibility:hidden"><p id="calc"></label>	
+		<label for = "chkPipe"><p id="chkPipe" style="visibility:hidden">Determine which pipe is this:<select id="sel" autocomplete="off">
+			<option value="1"></option>
+			<option value="2">Thick Cylinder</option>
+			<option value="3">Thin Cylinder</option>
+		</select><input id="chk" type="button" value="Check" onclick="checkPipe();"></p></label>
+		<label for = "rtval"><p id="rtval" style="font-size: 20px; font-family: verdana;text-align:center;visibility:hidden">This is a thick cylinder.</p></label>	
+	</form>
+</div>
+
+<!-- step2 -->
+<div class="simsubscreen" id="canvas2" style="visibility:hidden;" > 
+	<strong id="titlestep" class="incanvas">STEP &nbsp;</strong> 
+	<span class="circlebg" id="stepnumber">&nbsp;2&nbsp;</span>
+	<p id="pumptext-2" class="steptext" style="font-family:verdana; font-size:14px;">&nbsp;Insert the bottom flange to one end and wedge ring to other end. Then mount the top flange to the pipe and clamp it with the bolts.</p>
+	<img id="can3-1" style="position: absolute; left: 30px; top: 50px;cursor:pointer" src="images/can31.png"/>
+	<img id="can3-2" style="position: absolute; left: 580px; top: 180px;cursor:pointer;visibility:hidden" src="images/can34.png"/>
+	<img id="can3-3" style="position: absolute; left: 380px; top: 180px;width:8%;cursor:pointer;visibility:hidden" src="images/can35.png"/>
+	<img id="can3-5d" style="position: absolute; left: 561px; top: 125px;cursor:pointer;visibility:hidden" src="images/zm1.PNG"/>
+	<img id="can3-5a" style="position: absolute; left: 580px; top: 180px;cursor:pointer;" src="images/pipeflange.png"/>
+	<img id="can3-5b" style="position: absolute; left: 566px; top: 320px;cursor:pointer;" src="images/bottomflange.png"/>
+	<img id="can3-5" style="position: absolute; left: 563px; top: 80px;cursor:pointer;" src="images/topflange.png"/>
+	<img id="can3-41" style="position: absolute; left: 570px; top: 120px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can3-42" style="position: absolute; left: 590px; top: 120px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can3-43" style="position: absolute; left: 610px; top: 118px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can3-44" style="position: absolute; left: 572px; top: 345px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can3-45" style="position: absolute; left: 590px; top: 354px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can3-46" style="position: absolute; left: 608px; top: 350px;cursor:pointer;" src="images/can36.png"/>
+	
+</div>	
+
+	
+<!--Step3	-->	
+<div class="simsubscreen" id="canvas3" style="visibility:hidden;" > 
+	<strong id="titlestep" class="incanvas">STEP &nbsp;</strong> 
+	<span class="circlebg" id="stepnumber">&nbsp;3&nbsp;</span>
+	<p id="pumptext-2" class="steptext" style="font-family:verdana; font-size:14px;">&nbsp;Start the power pack to pump in oil.</p>
+	<span id="span4" style="position: absolute; left: 155px; top: 80px;cursor:pointer;" id="span4"/></span>
+	<img id="can4-1" style="position: absolute; left: 30px; top: 50px;cursor:pointer" src="images/can37.png"/>
+	<img id="can4-2" style="position: absolute; left: 580px; top: 120px;cursor:pointer" src="images/can35.png"/>
+	<img id="can4-41" style="position: absolute; left: 612px; top: 195px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can4-42" style="position: absolute; left: 632px; top: 195px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can4-43" style="position: absolute; left: 652px; top: 192px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can4-44" style="position: absolute; left: 612px; top: 386px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can4-45" style="position: absolute; left: 629px; top: 392px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can4-46" style="position: absolute; left: 648px; top: 387px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can4-3" style="position: absolute; left: 0px; top: 57px;cursor:pointer;visibility:hidden" src="images/pumpon.png"/>
+	
+	
+</div>	
+ 
+ 
+ <!--Step4	-->	
+<div class="simsubscreen" id="canvas4" style="visibility:hidden">
+	<strong class="incanvas">STEP &nbsp;</strong><span class="circlebg">&nbsp;4&nbsp;</span>
+	<p class="steptext" style="font-family:verdana; font-size:14px;">&nbsp;Start the machine, as the pressure nears to the theoretical pressure, slow down the pumping rate and wait for appearance of longitudinal cracks and consequent sudden drop in pressure.</p>
+	<img id="can5-41" style="position: absolute; left: 621px; top: 226px;cursor:pointer;visibility:hidden" src="images/burst1.png"/>
+	<img id="can5-42" style="position: absolute; left: 621px; top: 226px;cursor:pointer;visibility:hidden" src="images/burst2.png"/>
+	<img id="can5-43" style="position: absolute; left: 621px; top: 226px;cursor:pointer;visibility:hidden" src="images/burst3.png"/>
+	<img id="can5-51" style="position: absolute; left: 420px; top: 251px;cursor:pointer;visibility:hidden" src="images/bu1.png"/>
+	<img id="can5-52" style="position: absolute; left: 420px; top: 251px;cursor:pointer;visibility:hidden" src="images/bu2.png"/>
+	<img id="can5-53" style="position: absolute; left: 420px; top: 251px;cursor:pointer;visibility:hidden" src="images/bu3.png"/>
+	<span id="span5" style="position: absolute; left: 155px; top: 80px;cursor:pointer;" id="span4"></span>
+	<img id="can5-1" style="position: absolute; left: 30px; top: 50px;cursor:pointer" src="images/can5.png"/>
+	<img id="can5-2" style="position: absolute; left: 580px; top: 120px;cursor:pointer" src="images/can35.png"/>
+	<img id="can5-41" style="position: absolute; left: 612px; top: 186px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can5-42" style="position: absolute; left: 632px; top: 186px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can5-43" style="position: absolute; left: 652px; top: 188px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can5-44" style="position: absolute; left: 612px; top: 386px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can5-45" style="position: absolute; left: 629px; top: 392px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can5-46" style="position: absolute; left: 648px; top: 387px;cursor:pointer;" src="images/can36.png"/>
+	<img id="can5-3" style="position: absolute; left: 0px; top: 57px;cursor:pointer;visibility:hidden" src="images/pumpon.png"/>
+	<img id="can5-5" style="position: absolute; left: 285px; top: 289px;cursor:pointer;" src="images/needle.png"/>
+</div> 
+	
+ <!--Step5	-->	
+<div class="simsubscreen" id="canvas5"   style="visibility:hidden" >
+	<strong class="incanvas">STEP &nbsp;</strong><span class="circlebg">&nbsp;5&nbsp;</span>
+	<p class="steptext" style="font-family:verdana; font-size:14px;">&nbsp;Observations and Calculations.</p>
+	<p id="can6-1" style="position: absolute; left: 50px; top: 50px;font-size: 14px; font-family: verdana;">The pipe bursting pressure is calculated based on the Von-Mises stress for thick cylinder.</p>
+	<p id="eqn"style="position:absolute; left:250px; top: 100px;font-size: 20px; font-family: verdana;border:solid 2px">&sigma;<sub>von</sub> = <span class="frac"><sup>1.73205 &times;  P &times; r<sub>2</sub><sup>2</sup></sup><span>&frasl;</span><sub>r<sub>2</sub><sup>2</sup></sup> - r<sub>1</sub><sup>2</sup></sup></sub></span></p><!--Used mathstyle.css file to display equation-->
+	<form id="result" style="position: absolute; left: 50px; top: 200px;cursor:pointer;font-size: 14px; font-family: verdana;" >
+		<label for = "outerdia"><p id="outerdia">Outer diameter of the pipe = <span></span>&nbsp;mm</p></label>
+		<label for = "thickness"><p id="thickness">Thickness of the pipe = <span></span>&nbsp;mm</p></label>
+		<label for = "outerrad"><p id="outerrad">Outer radius of the pipe (r<sub>2</sub>)= <span></span>&nbsp;mm</p></label>
+		<label for = "innerrad"><p id="innerrad">Inner radius of the pipe (r<sub>1</sub>)= <span></span>&nbsp;mm</p></label>
+		<label for = "uts"><p id="uts">Ultimate Tensile strength of pipe (UTS) =(&sigma;<sub>von</sub>)= <span class="line"></span>&nbsp;kgf/mm<sup>2</sup></p></label>
+		<label for = "res"><p id="res">P= <span class="frac"><sup>&sigma;<sub>von</sub>&times;(r<sub>2</sub><sup>2</sup> - r<sub>1</sub><sup>2</sup>)</sup><span>&frasl;</span><sub>1.73205 &times; r<sub>2</sub><sup>2</sup></sup></sup></sub></span> =</label>
+	</form>
+</div>
+
+
+<span id="1"></span>
+
+<!-- This is the questions division -->
+<span id="question-div">
+	 <p id="divq" style="font-family:verdana; font-size:14px;"></p>
+	 <!-- <input type="button" style="cursor:pointer" value="OK" onclick = "evaluateAnswer();"> -->
+	 <p id="ans"></p>
+</span>
+
+
+<!--next  Arrow	-->	
+<div id="nav">
+	<img id="nextButton" onclick="navNext();" src="images/Next.png" />
+</div>
+ 
+	<span id="dialog-div">
+	 <!-- <dialog id="dialog-div" open=false> -->
+	 <p id="divp" style="font-family:verdana; font-size:14px;">Both ends of the pipe must be trimmed to ensure parallel faces.</p>
+	 <input type="button" style="cursor:pointer" value="OK" onclick = "hideDialog();">
+	 <!-- </dialog> -->
+ </span>
+<!--Blinking Arrow	-->	
+<img class ="" id="arrow1" style="visibility:hidden;" src="images/arrow1.png"/>
+<img class ="" id="arrow2" style="visibility:hidden;" src="images/arrow1.png"/>
+
+<div id="copyright"> &copy; 2015 - <script>document.write(new Date().getFullYear())</script> SOLVE - The Virtual Lab @ NITK Surathkal, Department of Water Resources & Ocean Engineering</div>
+<script src="../assets/js/iframeResize.js"></script></body>
+</html>
